@@ -35,6 +35,9 @@ It is assumed you are in the root directory of the Codespeed software.
    `export PYTHONPATH=../:$PYTHONPATH`
    or
    `ln -s ../codespeed .`
+6. Adjust the ROOT_URLCONF in settings.py
+   `$EDITOR settings.py` and change example.urls to what your Django project is called.
+   In this example it is `ROOT_URLCONF = 'speedcenter.urls'.
 6. Initialise the Django Database
    `python manage.py syncdb`
    (Yes, add a superuser.)
