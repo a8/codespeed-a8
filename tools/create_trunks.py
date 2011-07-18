@@ -44,7 +44,7 @@ def main():
     projects = Project.objects.all()
 
     for proj in projects:
-        if not proj.branches.get(name='default'):
+        if not proj.branches.filter(name='default'):
             trunk = Branch(name='default', project = proj)
             trunk.save()
             print "Created branch 'default' for project {0}".format(proj)
