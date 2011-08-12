@@ -695,18 +695,24 @@ def reports(request):
 
 
 def displaylogs(request):
+    """
+    Display SCM logs
+    """
     rev = get_object_or_404(Revision, pk=request.GET.get('revisionid'))
-    logs = []
-    logs.append(rev)
+    logs = [rev]
     error = False
     try:
-        startrev = Revision.objects.filter(
+        revs = Revision.objects.filter(
+        #startrev = Revision.objects.filter(
             branch=rev.branch
-        ).filter(date__lt=rev.date).order_by('-date')[:1]
-        if not len(startrev):
+        ).filter(date__lt=rev.date).order_by('-date')
+        len_revs = len(revs)
+        if not len_revs:
             startrev = rev
+        elif settings.SHOW_MAX_REVISION_LOGS > 0:
+            startrev = revs[max(0, len_revs - settings.SHOW_MAX_REVISION_LOGS)]
         else:
-            startrev = startrev[0]
+            startrev = revs[0]
 
         remotelogs = getcommitlogs(rev, startrev)
         if len(remotelogs):

@@ -61,3 +61,6 @@ COMP_EXECUTABLES = None  # Which executable + revision should be checked as defa
 DEF_BRANCH = "default" # Defines the default branch to be used.
                        # In git projects, this branch is usually be calles
                        # "master"
+
+SHOW_MAX_REVISION_LOGS = 5 # Show only that many revision logs in Changes
+                            # Set it to 0 to see all
